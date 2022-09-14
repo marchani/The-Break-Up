@@ -3,6 +3,7 @@
 //
 
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 //
@@ -41,6 +42,32 @@ public class Fading : MonoBehaviour
 
 
 	//
+	// OnEnable()
+	//
+	void OnEnable()
+	{
+		SceneManager.sceneLoaded += OnLevelFinishedLoading;
+	}
+
+
+	//
+	// OnDisable()
+	//
+	void OnDisable()
+	{
+		SceneManager.sceneLoaded -= OnLevelFinishedLoading;
+	}
+
+
+	//
+	// OnLevelFinishedLoading()
+	//
+	void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode)
+	{
+		BeginFade(-1);
+	}
+
+	//
 	// OnGUI()
 	//
 	void OnGUI ()
@@ -61,14 +88,5 @@ public class Fading : MonoBehaviour
 	{
 		fadeDir = direction;
 		return (fadeSpeed);
-	}
-
-
-	//
-	// OnLevelWasLoaded()
-	//
-	void OnLevelWasLoaded()
-	{
-		BeginFade (-1);
 	}
 }

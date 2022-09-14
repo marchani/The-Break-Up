@@ -32,7 +32,7 @@ public class FallingObject : MonoBehaviour
 		
 		if (transform.position.y < 0)
 		{
-			audio.PlayOneShot(audioClips[Random.Range(0, audioClips.Length)]);
+			GetComponent<AudioSource>().PlayOneShot(audioClips[Random.Range(0, audioClips.Length)]);
 			Instantiate(prefab, transform.position, Quaternion.identity);
 			
 			if (this.CompareTag("stein"))

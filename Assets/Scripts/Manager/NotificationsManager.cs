@@ -3,6 +3,7 @@
 //
 
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -126,11 +127,29 @@ public class NotificationsManager : MonoBehaviour
 
 
 	//
-	// OnLevelWasLoaded()
+	// OnEnable()
+	//
+	void OnEnable()
+	{
+		SceneManager.sceneLoaded += OnLevelFinishedLoading;
+	}
+
+
+	//
+	// OnDisable()
+	//
+	void OnDisable()
+	{
+		SceneManager.sceneLoaded -= OnLevelFinishedLoading;
+	}
+
+
+	//
+	// OnLevelFinishedLoading()
 	//
 	// Called when a new level is loaded; remove redundant entries from dictionary; in case leftover from previous scene
 	//
-	void OnLevelWasLoaded()
+	void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode)
 	{
 		// Clear redundancies
 		RemoveRedundancies();

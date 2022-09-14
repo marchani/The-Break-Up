@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
 	//
 	void Start ()
 	{
-		animation.Stop();  // this stops Unity from playing the character's default animation.
+		GetComponent<Animation>().Stop();  // this stops Unity from playing the character's default animation.
 
 		// Get cached transform
 		ThisTransform = transform;
@@ -76,16 +76,16 @@ public class PlayerController : MonoBehaviour
 		
 		if (lastX != transform.position.x)
 		{	
-			if (!animation.IsPlaying("catch"))
+			if (!GetComponent<Animation>().IsPlaying("catch"))
 			{
-				animation.Play("step");
+				GetComponent<Animation>().Play("step");
 			}
 		}
 		else
 		{
-			if (!animation.IsPlaying("catch"))
+			if (!GetComponent<Animation>().IsPlaying("catch"))
 			{
-				animation.Play("idle");
+				GetComponent<Animation>().Play("idle");
 			}
 		}
 		
@@ -129,9 +129,9 @@ public class PlayerController : MonoBehaviour
 		if (col.gameObject.CompareTag("bomb"))
 		{
 			Instantiate(explosion, col.gameObject.transform.position, Quaternion.identity);
-			audio.PlayOneShot(explosionClip);
+			GetComponent<AudioSource>().PlayOneShot(explosionClip);
 			
-			animation.Stop();
+			GetComponent<Animation>().Stop();
 			
 			TakeDamage(20);
 		}
@@ -139,8 +139,8 @@ public class PlayerController : MonoBehaviour
 		{
 			GameManager.Notifications.PostNotification (this, "SteinCaught");
 
-			animation.Play("catch");
-			audio.PlayOneShot(clip1);
+			GetComponent<Animation>().Play("catch");
+			GetComponent<AudioSource>().PlayOneShot(clip1);
 		}
 
 		col.gameObject.transform.position = new Vector3 (Random.Range (0, 60), 50, -16);
